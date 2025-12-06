@@ -2,7 +2,30 @@ import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
     {
-        path : "/", // Halaman dari sebuah page
+        path : "/",
+        children : [
+            {
+                index : true,
+                lazy : {
+                    Component : async() => {
+                        const component = await import("../pages/auth/signup/SignUp.tsx")
+                        return component.default
+                    }
+                }
+            },
+            {
+                path : "signIn",
+                lazy : {
+                    Component : async() => {
+                        const component = await import("../pages/auth/signin/SignIn.tsx")
+                        return component.default
+                    }
+                }
+            }
+        ]    
+    },  
+    {
+        path : "/movies",
         children : [
             {
                 index : true,
@@ -10,26 +33,19 @@ const router = createBrowserRouter([
                     Component : async() => {
                         const component = await import("../pages/movies/Movies.tsx")
                         return component.default
-                        }
+                    }
                 }
-            },{
-                path : "/", // Halaman dari sebuah page
-                    children : [
-                        {
-                            path : "add-movie",
-                            lazy : {
-                                Component : async() => {
-                                    const component = await import("../pages/movies/AddMovie.tsx")
-                                    return component.default
-                                    }
-                            }
-                        }
-
-                    ]
-             },
-        ],
-
-        
+            },
+            {
+                path : "add-movie",
+                lazy : {
+                    Component : async() => {
+                        const component = await import("../pages/movies/AddMovie.tsx")
+                        return component.default
+                    }
+                } 
+            }
+        ] // alamat dari sebuah page
     }
 ])
 
