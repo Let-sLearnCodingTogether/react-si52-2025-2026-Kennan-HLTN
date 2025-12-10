@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap"
 import { useState, useCallback, useEffect } from "react"
 import type { ChangeEvent } from "react"
 import ApiClient from "../../utils/ApiClient"
+import { useNavigate } from "react-router"
 
 interface formMovie {
     title : string,
@@ -64,6 +65,7 @@ function EditMovie(){
         try{
             const response = await ApiClient.post("/movie", form)
             console.log(response);
+            navigate ("/movies", {replace : true})
         } catch (error) {
             console.log(error);
         }
